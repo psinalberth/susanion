@@ -1,14 +1,28 @@
-import { Component } from '@angular/core';
-import { Platform } from 'ionic-angular';
+import { Component, ViewChild } from '@angular/core';
+import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import { HomePage } from '../pages/home/home';
+import { AbordagensPage } from '../pages/abordagens/abordagens';
+import { SuspeitosPage } from '../pages/suspeitos/suspeitos';
+
+export interface MenuItem {
+    title: string;
+    component: any;
+    icon: string;
+}
+
 @Component({
   templateUrl: 'app.html'
 })
 export class MyApp {
-  rootPage:any = HomePage;
+
+  @ViewChild(Nav)
+  navigator: Nav;
+
+  rootPage:any = SuspeitosPage;
+
+  appMenuItems: Array<MenuItem>;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
     platform.ready().then(() => {
@@ -17,6 +31,15 @@ export class MyApp {
       statusBar.styleDefault();
       splashScreen.hide();
     });
+
+    this.appMenuItems = [
+      {title: 'Suspeitos', component: SuspeitosPage, icon: 'person'},
+      {title: 'Abordagens', component: AbordagensPage, icon: 'pin'}
+    ];
+  }
+
+  doNavigate(page) {
+    this.navigator.setRoot(page.component);
   }
 }
 
