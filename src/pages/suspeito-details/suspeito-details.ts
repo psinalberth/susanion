@@ -20,7 +20,7 @@ export class SuspeitoDetailsPage {
   public base64Image: string;
   private title: string;
 
-  formGroup: FormGroup;
+  obj: FormGroup;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, fb: FormBuilder, 
     private camera: Camera) {
@@ -34,12 +34,8 @@ export class SuspeitoDetailsPage {
        this.title = 'Novo Suspeito';
      }
 
-     this.formGroup = fb.group({
-       'nome': ['', Validators.compose([Validators.required])],
-       'apelido': '',
-       'identificacao': '',
-       'nome_da_mae': '',
-       'data_nascimento': ''
+     this.obj = fb.group({
+       nome: ['', [Validators.required, Validators.minLength(2)]]
      });
 
   	/*if (this.suspeito == null) {

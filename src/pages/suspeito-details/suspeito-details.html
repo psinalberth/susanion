@@ -23,16 +23,19 @@
 		</ion-card-content>
 	</ion-card> 
 
-	<form [formGroup]="formGroup" (ngSubmit)="onSubmit()">	
+	<form [formGroup]="obj" (ngSubmit)="onSubmit()">	
 		<!-- <ion-list> -->
 			<ion-item>
 				<ion-label floating>Nome</ion-label>
 				<ion-input type="text" formControlName="nome"></ion-input>
 			</ion-item>
 
-			 <ion-item *ngIf="!formGroup.controls.nome.valid  && (formGroup.controls.nome.dirty )">
-                <p>Please enter a valid name.</p>
-            </ion-item>
+			<div class="error" *ngIf="obj.get('nome').touched && obj.get('nome').hasError('required')">
+        nome is required
+      </div>
+      <div class="error" *ngIf="obj.get('nome').touched && obj.get('nome').hasError('minlength')">
+        Minimum of 2 characters
+      </div>
 
 			<ion-item>
 				<ion-label floating>Apelido</ion-label>
